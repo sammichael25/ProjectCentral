@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2017 at 08:51 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Generation Time: Apr 21, 2017 at 01:43 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,6 +33,12 @@ CREATE TABLE `groups` (
   `mem_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`group_id`, `mem_id`) VALUES(1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +53,12 @@ CREATE TABLE `members` (
   `uid_4` int(11) NOT NULL,
   `uid_5` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`mem_id`, `uid_1`, `uid_2`, `uid_3`, `uid_4`, `uid_5`) VALUES(1, 2, 3, 4, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -65,6 +77,12 @@ CREATE TABLE `project_details` (
   `last_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `project_details`
+--
+
+INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(2, 'UWE-Find', 'INFO 3490', 3, 'Class room locating web application that gives directions to classrooms around campus', 'https://github.com/spiral360/U-WEFind', 1, '2017-04-20 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +97,12 @@ CREATE TABLE `project_image` (
   `img_type` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `project_image`
+--
+
+INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(1, 2, 'uwefind.png', 'images/project/uwefind.png', 'image/png');
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +116,12 @@ CREATE TABLE `pro_pic` (
   `img_path` varchar(500) NOT NULL,
   `img_type` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pro_pic`
+--
+
+INSERT INTO `pro_pic` (`pic_id`, `uid`, `img_name`, `img_path`, `img_type`) VALUES(3, 4, '58f78d0aa3e88.png', 'images/58f78d0aa3e88.png', 'image/png');
 
 -- --------------------------------------------------------
 
@@ -114,6 +144,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(1, 'Michael', 'Sam', 'sammichael25@gmail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Team Leader');
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(4, 'John', 'Smith', 'john@mail.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'Student', 'Programmer');
 
 --
 -- Indexes for dumped tables
@@ -172,32 +203,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `project_details`
 --
 ALTER TABLE `project_details`
-  MODIFY `proj_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `proj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `project_image`
 --
 ALTER TABLE `project_image`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pro_pic`
 --
 ALTER TABLE `pro_pic`
-  MODIFY `pic_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `pic_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --

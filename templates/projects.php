@@ -28,8 +28,12 @@
     ?>
         <nav>
           <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Login</a></li>
+            <li class="active"><a href="/projects.php">Home</a></li>
+            <?php
+        if(!isset($_SESSION["user"])){
+                echo "<li><a href=\"/index.php\">Login</a></li>";
+                }
+    ?>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
@@ -44,28 +48,8 @@
       </div>
 
      <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card">
-                    <img class="card-img-top" src="../templates/images/uwefind.png">
-                    <div class="card-block">
-                        <figure class="profile">
-                            <img src="../templates/images/placeholder.png" class="profile-avatar" alt="">
-                        </figure>
-                        <h4 class="card-title mt-3">UWE-Find</h4>
-                        <div class="meta">
-                            <a>UWE-Find Inc &copy;</a>
-                        </div>
-                        <div class="card-text">
-                            Class room locating web application that gives directions to classrooms around campus
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <small>Last updated 3 mins ago</small>
-                        <button class="btn btn-secondary btn-md" id ="btn-today">Read More <span><i class="glyphicon glyphicon-star"></i></span></button>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="project_row">
+            
         </div>
         
     </div>

@@ -1,9 +1,11 @@
 <?php
+require 'vendor/autoload.php';
+include 'lib.php';
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'vendor/autoload.php';
-include 'lib.php';
+
 $config = [
 		'settings' => [
 				'displayErrorDetails' => true,
@@ -29,19 +31,55 @@ $app->get('/guest', function (Request $request, Response $response) {
     return $this->view->render($response, "/projects.php");
 });
 
-$app->post("/login", function(Request $request, Response $response)use ($app){
-	echo "hello world";
-	/*$post = $request->getParsedBody();
+/*$app->get('/projects', function (Request $request, Response $response) {
+    return $this->view->render($response, "/projects.php");
+});*/
+
+$app->post("/login", function (Request $request, Response $response){
+	$post = $request->getParsedBody();
 	$email = $post['email'];
 	$password = $post['password'];
+	
 	$res = checkLogin($email, $password);
-	if ($res){
+	print_r ($res);
+	if ($res === true){
 		$response = $response->withStatus(201);
-		$response = $response->withJson(array("loginstatus"=> true));
-	} else {
+		$response = $response->withJson(201);
+	} else{
 		$response = $response->withJson(400);
 	}
-	return $response;*/
+	return $response;
+});
+
+
+$app->post("/signup", function(Request $request, Response $response){
+	$post = $request->getParsedBody();
+	$email = $post['email'];
+	$fname = $post['fname'];
+	$lname = $post['lname'];
+	$password = $post['password'];
+	$password2 = $post['password2'];
+	$role = $post['role'];
+	if ($password === $password2){
+	$res = saveUser($email,$fname, $lname, $password, $role);
+	}
+	if ($res){
+		$response = $response->withStatus(201);
+		return $this->view->render($response, "/projects.php");
+	} else {
+		$response = $response->withStatus(400);
+	}
+	return $response;
+});
+
+$app->get('/admin', function (Request $request, Response $response) {
+    return $this->view->render($response, "/studentAdmin.php");
+});
+
+$app->get("/projects", function(Request $request, Response $response){
+	$projects = getProjects();	
+	$response = $response->withJson($projects);
+	return $response;
 });
 
 // Run app
