@@ -24,16 +24,16 @@ $container['view'] = function ($container) {
 };
 
 $app->get('/', function (Request $request, Response $response) {
-    return $this->view->render($response, "/login.php");
+    return $this->view->render($response, "/index.phtml");
 });
 
 $app->get('/guest', function (Request $request, Response $response) {
     return $this->view->render($response, "/projects.php");
 });
 
-/*$app->get('/projects', function (Request $request, Response $response) {
+$app->get('/projects/load', function (Request $request, Response $response) {
     return $this->view->render($response, "/projects.php");
-});*/
+});
 
 $app->post("/login", function (Request $request, Response $response){
 	$post = $request->getParsedBody();
@@ -41,7 +41,6 @@ $app->post("/login", function (Request $request, Response $response){
 	$password = $post['password'];
 	
 	$res = checkLogin($email, $password);
-	print_r ($res);
 	if ($res === true){
 		$response = $response->withStatus(201);
 		$response = $response->withJson(201);
@@ -65,6 +64,7 @@ $app->post("/signup", function(Request $request, Response $response){
 	}
 	if ($res){
 		$response = $response->withStatus(201);
+		header('Content-Type: application/x-www-form-urlencoded');
 		return $this->view->render($response, "/projects.php");
 	} else {
 		$response = $response->withStatus(400);
@@ -78,8 +78,11 @@ $app->get('/admin', function (Request $request, Response $response) {
 
 $app->get("/projects", function(Request $request, Response $response){
 	$projects = getProjects();	
+	header('Content-Type: application/x-www-form-urlencoded');
 	$response = $response->withJson($projects);
 	return $response;
+	//return $this->view->render($response, "/projects.php");
+
 });
 
 // Run app

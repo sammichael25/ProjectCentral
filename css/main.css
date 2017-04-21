@@ -5,13 +5,20 @@ html {
 #login_page{
     /*background-image: url("images/login.jpg");
     background-size: 100%;*/
-    background-color: #ddd;
+    
+    background-image: url("images/back.jpg");
     height: 100%;
     padding-bottom: 70px;
 }
 
+#logo{
+    margin-left: 610px;
+    width: auto;
+    height: 190px;
+}
+
 #header{
-    background-color: #fff;
+    
     height: 100px;
 }
 #footer{

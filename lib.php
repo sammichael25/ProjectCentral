@@ -53,10 +53,10 @@ function saveUser($email,$fname, $lname, $password, $role){
 			// MimeType List => http://www.iana.org/assignments/media-types/media-types.xhtml
 			$file->addValidations(array(
 				// Ensure file is of type "image/png"
-				new \Upload\Validation\Mimetype('image/png', 'image/jpeg', 'image/jpg'),
+				//new \Upload\Validation\Mimetype('image/png', 'image/jpeg', 'image/jpg'),
 
 				//You can also add multi mimetype validation
-				//new \Upload\Validation\Mimetype(array('image/png', 'image/gif'))
+				new \Upload\Validation\Mimetype(array('image/png','image/jpeg', 'image/jpg')),
 
 				// Ensure file is no larger than 5M (use "B", "K", M", or "G")
 				new \Upload\Validation\Size('10M')
@@ -77,7 +77,7 @@ function saveUser($email,$fname, $lname, $password, $role){
 				// Success!
 				$file->upload();
 				$filename = $data['name'];
-				$filepath = "images/".$data['name'];
+				$filepath = "images/profile/".$data['name'];
 				$filetype = $data['mime'];
 				$sql = "INSERT INTO `pro_pic` (`pic_id` , `uid` ,`img_name` , `img_path` , `img_type`) VALUES (NULL,'$id','$filename','$filepath','$filetype')";
 				$result = $db->query($sql);
