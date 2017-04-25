@@ -35,6 +35,14 @@ $app->get('/projects/load', function (Request $request, Response $response) {
     return $this->view->render($response, "/projects.php");
 });
 
+$app->get('/project/{id}/load', function (Request $request, Response $response) {
+	// $response->withHeader('Content-type', 'application/json');
+	$id = $request->getAttribute('id');
+	$params = array("project_id"=>$id);
+
+    return $this->view->render($response, "/project.php", $params);
+});
+
 $app->post("/login", function (Request $request, Response $response){
 	$post = $request->getParsedBody();
 	$email = $post['email'];
@@ -81,8 +89,58 @@ $app->get("/projects", function(Request $request, Response $response){
 	header('Content-Type: application/x-www-form-urlencoded');
 	$response = $response->withJson($projects);
 	return $response;
-	//return $this->view->render($response, "/projects.php");
 
+});
+
+$app->get("/project/{id}", function(Request $request, Response $response){
+	$id = $request->getAttribute('id');
+	$project = getProject($id);	
+	header('Content-Type: application/x-www-form-urlencoded');
+	$response = $response->withJson($project);
+	$response->withHeader('Content-type', 'application/json');
+	return $response;
+
+});
+
+$app->post("/edit", function (Request $request, Response $response){
+	$post = $request->getParsedBody();
+	$name = $post['name'];
+	$year = $post['year'];
+	$course = $post['course'];
+	$github = $post['github'];
+	$description = $post['description'];
+	$group = $post['group'];
+	
+	$res = editProject($name, $year, $course, $github, $description, $group);
+	if ($res != false){
+		$response = $response->withStatus(201);
+		$response = $response->withJson($res);
+	} else{
+		$response = $response->withJson(400);
+	}
+	return $response;
+});
+
+$app->post("/add", function (Request $request, Response $response){
+	$post = $request->getParsedBody();
+	$name = $post['name'];
+	$year = $post['year'];
+	$course = $post['course'];
+	$github = $post['github'];
+	$description = $post['description'];
+	$bdescription = $post['bdescription'];
+	$group = $post['group'];
+	
+	$res = addProject($name, $year, $course, $github, $bdescription, $description, $group);
+	if ($res != false){
+		$response = $response->withStatus(201);
+		$response = $response->withJson($res);
+	} else{
+		$response = $response->withJson(400);
+	}
+	header('Content-Type: application/x-www-form-urlencoded');
+	return $this->view->render($response, "/projects.php");
+	//return $response;
 });
 
 // Run app

@@ -5,8 +5,10 @@
     <meta charset="utf-8"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Project Admin Page</title> 
-	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">	
-	<link href="../bower_components/bootstrap/dist/css/memberstyle.css" rel="stylesheet" type="text/css">
+	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">	
+	<link href="bower_components/bootstrap/dist/css/memberstyle.css" rel="stylesheet" type="text/css">
+    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css"> 
     </head>
 
 
@@ -26,10 +28,10 @@
         <li class="dropdown">
           <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>Student Admin <span class="caret"></span></a>
           <ul id="g-account-menu" class="dropdown-menu" role="menu">
-            <li><a href="#">My Profile</a></li>
+            <li><a href="#">My Project</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+        <li><a href="./"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
       </ul>
     </div>
   </div><!-- /container -->
@@ -48,10 +50,10 @@
           <h5>Settings <i class="glyphicon glyphicon-chevron-down"></i></h5>
           </a>
             <ul class="list-unstyled collapse in" id="userMenu">
-                <li class="active"> <a href="getprojects"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li class="active"> <a href="./projects/load"><i class="glyphicon glyphicon-home"></i> Home</a></li>
                 <li><a href="#" onClick="$('#groupbox').hide(); $('#editbox').show()"> <i class="glyphicon glyphicon-cog"></i> Edit Project</a></li>
                 <li><a href="#" onClick="$('#editbox').hide(); $('#groupbox').show()"><i class="glyphicon glyphicon-user" ></i> Group Members</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                <li><a href="./"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
         </li>
       </ul>
@@ -68,7 +70,7 @@
         <div class="panel panel-default">
           <div class="panel-heading"><h4>Edit Project page</h4></div>
             <div class="panel-body">
-                   <form class="form-horizontal">
+                   <form class="form-horizontal" enctype="multipart/form-data" method="POST">
                       <fieldset>
 
                       <!-- Form Name -->
@@ -112,9 +114,26 @@
 
                       <!-- Textarea -->
                       <div class="form-group">
-                        <label class="col-md-4 control-label" for="description">Project Description</label>
+                        <label class="col-md-4 control-label" for="bdescription">Brief Description</label>
+                        <div class="col-md-4">                     
+                          <textarea class="form-control" id="bdescription" name="bdescription"></textarea>
+                        </div>
+                      </div>
+
+                      <!-- Textarea -->
+                      <div class="form-group">
+                        <label class="col-md-4 control-label" for="description">Detailed Project Description</label>
                         <div class="col-md-4">                     
                           <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                      </div>
+
+                      <!-- Text input-->
+                      <div class="form-group">
+                        <label class="col-md-4 control-label" for="gname">Group Name</label>  
+                        <div class="col-md-4">
+                        <input id="gname" name="gname" type="text" placeholder="" class="form-control input-md" required="">
+                          
                         </div>
                       </div>
 
@@ -122,18 +141,26 @@
                       <div class="form-group">
                         <label class="col-md-4 control-label" for="images">Project Media</label>
                         <div class="col-md-4">
-                          <input id="images" name="images" class="input-file" type="file">
+                          <input id="images" name="images" class="input-file" type="file" >
                         </div>
                       </div>
 
                       <!-- Button -->
                       <div class="form-group">
                         <label class="col-md-4 control-label" for="save_project"></label>
-                        <div class="col-md-4">
-                          <button id="save_project" name="save_project" class="btn btn-primary">Save</button>
-                        </div>
-                      </div>
-
+                        <?php 
+                        $res = projectCheck();
+                            if($res){
+                            echo "<div class=\"col-md-1\">";
+                            echo "<button type=\"submit\" id=\"save_project\" name=\"save_project\" class=\"btn btn-primary\">Edit Project</button>";
+                            echo "</div>";
+                            }else{
+                            echo "<div class=\"col-md-1\">";
+                            echo "<button type=\"submit\" id=\"add_project\" name=\"add_project\" class=\"btn btn-primary\">Add Project</button>";
+                            echo "</div>";
+                            echo "</div>";
+                            }
+                        ?>
                       </fieldset>
                       </form>
    
@@ -515,9 +542,9 @@
 
 
 
-    <script src="../js/ie10-viewport-bug-workaround.js"></script>
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../js/admin.js"></script>
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>

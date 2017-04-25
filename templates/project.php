@@ -10,45 +10,60 @@
 	<title>Project Central</title>
 	
 	<!-- Bootstrap core CSS -->
-	<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../bower_components/bootstrap/dist/css/justified-nav.css" rel="stylesheet">
-	<link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-	<link href="../css/main.css" rel="stylesheet">
+	<link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../bower_components/bootstrap/dist/css/justified-nav.css" rel="stylesheet">
+	<link href="../../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<link href="../../css/main.css" rel="stylesheet">
+    
 </head>
 <body id="projects_body">
     <div class="container">
-
-      <div class="masthead">
-    <?php
+    <div class="navbar navbar navbar-static-top">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-toggle"></span>
+      </button>
+       <?php
         if(isset($_SESSION["user"])){
-                echo "<h3>Welcome ".$_SESSION["user"]."</h3>";
-                } else {
-                echo "<h3>Welcome Guest</h3>";
-                }
-    ?>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="/projects.php">Home</a></li>
-            <?php
-        if(!isset($_SESSION["user"])){
-                echo "<li><a href=\"/index.php\">Login</a></li>";
-                }
-    ?>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+                echo "<h3>Welcome ".$_SESSION["user"]."</h3>
+                
+    
+    </div>
+    <div class=\"navbar-collapse collapse\">
+      <ul class=\"nav navbar-nav navbar-right\">
+        
+        <li class=\"dropdown\">
+          <a class=\"dropdown-toggle\" role=\"button\" data-toggle=\"dropdown\" href=\"#\"><i class=\"glyphicon glyphicon-user\"></i>Student<span class=\"caret\"></span></a>
+          <ul id=\"g-account-menu\" class=\"dropdown-menu\" role=\"menu\">
+            <li><a href=\"#\">Admin Page</a></li>
           </ul>
-        </nav>
-      </div>
-
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1>Project Central UWI!</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-        <p><a class="btn btn-lg btn-success" id ="btn-today" href="#" role="button">Get started today <span><i class="glyphicon glyphicon-star"></i></span></a></p>
-      </div>
+        </li>
+        <li><a href=\"#\"><i class=\"glyphicon glyphicon-lock\"></i> Logout</a></li>
+      </ul>
+    </div>";
+	
+	} else {
+                echo "<h3>Welcome Guest</h3>
+				</div>
+    <div class=\"navbar-collapse collapse\" style=\"visibility: hidden\">
+      <ul class=\"nav navbar-nav navbar-right\">
+        
+        <li class=\"dropdown\">
+          <a class=\"dropdown-toggle\" role=\"button\" data-toggle=\"dropdown\" href=\"#\"><i class=\"glyphicon glyphicon-user\"></i>Student<span class=\"caret\"></span></a>
+          <ul id=\"g-account-menu\" class=\"dropdown-menu\" role=\"menu\">
+            <li><a href=\"#\">Admin Page</a></li>
+          </ul>
+        </li>
+        <li><a href=\"#\"><i class=\"glyphicon glyphicon-lock\"></i> Logout</a></li>
+      </ul>
+    </div>";
+    }
+	?>
+  </div>
+  </div>
 
      <div class="container">
-        <div class="row" id="project_row">
+        <div class="row">
             <div id="myCarousel" class="carousel slide">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -61,21 +76,21 @@
         <div class="carousel-inner">
             <div class="item active">
                 <!-- Set the first project image using inline CSS below. -->
-                <div class="fill" style="background-image:url('images/');"></div>
+                <div class="fill" style="background-image:url('');"></div>
                 <div class="carousel-caption">
                     <h1></h1>
                 </div>
             </div>
             <div class="item">
                 <!-- Set the second project image using inline CSS below. -->
-                <div class="fill" style="background-image:url('images/');"></div>
+                <div class="fill" style="background-image:url('');"></div>
                 <div class="carousel-caption">
                     <h1></h1>
                 </div>
             </div>
             <div class="item">
                 <!-- Set the third project image using inline CSS below. -->
-                <div class="fill" style="background-image:url('images/');"></div>
+                <div class="fill" style="background-image:url('');"></div>
                 <div class="carousel-caption">
                     <h2></h2>
                 </div>
@@ -94,6 +109,13 @@
         </div>
         
     </div>
+    <div class="container">
+        <div class="row" id="proj_row">
+            
+        </div>
+    </div>
+
+
       
 
       <!-- Site footer -->
@@ -103,12 +125,19 @@
 
     </div> <!-- /container -->
 
+    <div id="product_id_sec" style='display:none'>
+        <?php
+            if (isset($project_id))echo $project_id;
+            else echo "-1";
+        ?>
+    </div>
 
 
-    <script src="../js/ie10-viewport-bug-workaround.js"></script>
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>
-    <script src="../js/main.js"></script>    
+
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../js/main.js"></script> 
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>   
+    <script src="../../js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

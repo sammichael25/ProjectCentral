@@ -125,7 +125,7 @@ function getProjects(){
 	$db = getDBConnection();
 	$projects = [];
 	if ($db != null){
-		$sql = "SELECT * FROM `project_details` INNER JOIN `project_image` ON project_image.proj_id = project_details.proj_id";
+		$sql = "SELECT * FROM `project_details` INNER JOIN `project_image` ON project_image.proj_id = project_details.proj_id INNER JOIN `groups` ON project_details.group_id = groups.group_id";
 		$res = $db->query($sql);
 		while($res && $row = $res->fetch_assoc()){
 			$projects[] = $row;
@@ -133,4 +133,118 @@ function getProjects(){
 		$db->close();
 	}
 	return $projects;
+}
+
+function getProject($id){
+	$db = getDBConnection();
+	$project = [];
+	if ($db != null){
+		$sql = "SELECT * FROM `project_details` INNER JOIN `project_image` ON project_image.proj_id = project_details.proj_id INNER JOIN `groups` ON project_details.group_id = groups.group_id WHERE project_details.proj_id = $id";
+		$res = $db->query($sql);
+		while($res && $row = $res->fetch_assoc()){
+			$project[] = $row;
+		}
+		$db->close();
+	}
+	return $project;
+}
+
+function editProject($name, $year, $course, $github, $description, $group){
+	$db = getDBConnection();
+	$id = $_SESSION["id"];
+	$sql = "SELECT * FROM `project_details` INNER JOIN `groups` ON groups.group_id = project_details.group_id INNER JOIN `user` ON user.group_id = groups.group_id WHERE user.uid = $id";
+	if($db != NULL){
+		$res = $db->query($sql);
+		if ($res && $row = $res->fetch_assoc()){
+			$proj_id = $row['proj_id'];
+			$date = date("Y-m-d");
+			$updtsql = "UPDATE project_details INNER JOIN `groups` ON groups.group_id = project_details.group_id SET project_details.name = '$name', project_details.year = '$year', project_details.course_code = '$course', project_details.github_link = '$github', project_details.proj_description = '$description', project_details.last_updated = '$date', groups.group_name = '$group' WHERE project_details.proj_id = '$proj_id' ";
+			$res = $db->query($updtsql);
+			return $res;
+			//return $proj_id;
+		}
+        $db->close();
+	}
+	return false;
+}
+
+function projectCheck(){
+	$db = getDBConnection();
+	$id = $_SESSION["id"];
+	$sql = "SELECT * FROM `project_details` INNER JOIN `groups` ON groups.group_id = project_details.group_id INNER JOIN `user` ON user.group_id = groups.group_id WHERE user.uid = $id";
+	if($db != NULL){
+		$res = $db->query($sql);
+		if ($res && $row = $res->fetch_assoc()){
+			$proj_id = $row['proj_id'];
+			return true;
+		}
+        $db->close();
+	}
+	return false;
+}
+
+function addProject($name, $year, $course, $github, $bdescription, $description, $group){
+	$db = getDBConnection();
+	$id = $_SESSION["id"];
+	$sql  = "INSERT INTO `groups` (`group_id`, `group_name`) VALUES (NULL, '$group')";
+	if($db != NULL){
+		$res = $db->query($sql);
+		if ($res && $db->insert_id > 0){
+			$group_id = $db->insert_id;
+			$sql2  = "UPDATE `user` SET user.group_id = '$group_id' WHERE user.uid = $id";
+			$res2 = $db->query($sql2);
+			$sql3 = "INSERT INTO `project_details` (`name`, `course_code`, `year`,`proj_des`,`proj_description`, `github_link`, `group_id`) VALUES ('$name','$course','$year','$bdescription','$description','$github','$group_id')";
+			$res3 = $db->query($sql3);
+			$proj_id = $db->insert_id;
+
+			$storage = new \Upload\Storage\FileSystem('./images/project');
+			$file = new \Upload\File('images', $storage);
+
+			// Optionally you can rename the file on upload
+			$new_filename = uniqid();
+			$file->setName($new_filename);
+
+			// Validate file upload
+			// MimeType List => http://www.iana.org/assignments/media-types/media-types.xhtml
+			$file->addValidations(array(
+				// Ensure file is of type "image/png"
+				//new \Upload\Validation\Mimetype('image/png', 'image/jpeg', 'image/jpg'),
+
+				//You can also add multi mimetype validation
+				new \Upload\Validation\Mimetype(array('image/png','image/jpeg', 'image/jpg')),
+
+				// Ensure file is no larger than 5M (use "B", "K", M", or "G")
+				new \Upload\Validation\Size('10M')
+			));
+
+			// Access data about the file that has been uploaded
+			$data = array(
+				'name'       => $file->getNameWithExtension(),
+				'extension'  => $file->getExtension(),
+				'mime'       => $file->getMimetype(),
+				'size'       => $file->getSize(),
+				'md5'        => $file->getMd5(),
+				'dimensions' => $file->getDimensions()
+			);
+
+			// Try to upload file
+			try {
+				// Success!
+				$file->upload();
+				$filename = $data['name'];
+				$filepath = "images/project/".$data['name'];
+				$filetype = $data['mime'];
+				$sql = "INSERT INTO `project_image` (`img_id` , `proj_id` ,`img_name` , `img_path` , `img_type`) VALUES (NULL,'$proj_id','$filename','$filepath','$filetype')";
+				$result = $db->query($sql);
+			} catch (\Exception $e) {
+				// Fail!
+				$errors = $file->getErrors();
+			}
+			$res = $db->insert_id;
+			return $res;
+			
+		}
+        $db->close();
+	}
+	return false;
 }

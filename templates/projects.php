@@ -15,7 +15,7 @@
 	<link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">
 </head>
-<body id="projects_body">
+<body id="projects_body" onload="retrieveProjects()">
     <div class="container">
     <div class="navbar navbar navbar-static-top">
     <div class="navbar-header">
@@ -24,24 +24,40 @@
       </button>
        <?php
         if(isset($_SESSION["user"])){
-                echo "<h3>Welcome ".$_SESSION["user"]."</h3>";
-                } else {
-                echo "<h3>Welcome Guest</h3>";
-                }
-    ?>
+                echo "<h3>Welcome ".$_SESSION["user"]."</h3>
+                
+    
     </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
+    <div class=\"navbar-collapse collapse\">
+      <ul class=\"nav navbar-nav navbar-right\">
         
-        <li class="dropdown">
-          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>Student<span class="caret"></span></a>
-          <ul id="g-account-menu" class="dropdown-menu" role="menu">
-            <li><a href="#">Admin Page</a></li>
+        <li class=\"dropdown\">
+          <a class=\"dropdown-toggle\" role=\"button\" data-toggle=\"dropdown\" href=\"#\"><i class=\"glyphicon glyphicon-user\"></i>Student<span class=\"caret\"></span></a>
+          <ul id=\"g-account-menu\" class=\"dropdown-menu\" role=\"menu\">
+            <li><a href=\"../admin\">Admin Page</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+        <li><a href=\"../\"><i class=\"glyphicon glyphicon-lock\"></i> Logout</a></li>
       </ul>
-    </div>
+    </div>";
+	
+	} else {
+                echo "<h3>Welcome Guest</h3>
+				</div>
+    <div class=\"navbar-collapse collapse\" style=\"visibility: hidden\">
+      <ul class=\"nav navbar-nav navbar-right\">
+        
+        <li class=\"dropdown\">
+          <a class=\"dropdown-toggle\" role=\"button\" data-toggle=\"dropdown\" href=\"#\"><i class=\"glyphicon glyphicon-user\"></i>Student<span class=\"caret\"></span></a>
+          <ul id=\"g-account-menu\" class=\"dropdown-menu\" role=\"menu\">
+            <li><a href=\"#\">Admin Page</a></li>
+          </ul>
+        </li>
+        <li><a href=\"#\"><i class=\"glyphicon glyphicon-lock\"></i> Logout</a></li>
+      </ul>
+    </div>";
+    }
+	?>
   </div>
   </div>
     <div class="container">  <!-- Jumbotron -->
@@ -51,15 +67,10 @@
             </a>
         <h1>Project Central UWI!</h1>
         <p class="lead">Highlight your project today!!</p>
-        <p><a class="btn btn-lg btn-success" id ="btn-today" href="#" role="button">Get started today <span><i class="glyphicon glyphicon-star"></i></span></a></p>
+        <p><a class="btn btn-lg btn-success" id ="btn-today" href="../index.php" role="button">Get started today <span><i class="glyphicon glyphicon-star"></i></span></a></p>
       </div>
 
-     <div class="container">
-        <div class="row" >
-            <div class="col-sm-6 col-md-4 col-lg-3 mt-4" id="project_row">
-
-            </div>  
-        </div>
+     <div class="container" id="project_row">
         
     </div>
       

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2017 at 10:00 PM
+-- Generation Time: Apr 25, 2017 at 04:20 AM
 -- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,35 +30,15 @@ USE `web_project`;
 
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
-  `mem_id` int(11) NOT NULL
+  `group_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `groups`
 --
 
-INSERT INTO `groups` (`group_id`, `mem_id`) VALUES(2, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `members`
---
-
-CREATE TABLE `members` (
-  `mem_id` int(11) NOT NULL,
-  `uid_1` int(11) NOT NULL,
-  `uid_2` int(11) NOT NULL,
-  `uid_3` int(11) NOT NULL,
-  `uid_4` int(11) NOT NULL,
-  `uid_5` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `members`
---
-
-INSERT INTO `members` (`mem_id`, `uid_1`, `uid_2`, `uid_3`, `uid_4`, `uid_5`) VALUES(2, 12, 13, 14, 15, 16);
+INSERT INTO `groups` (`group_id`, `group_name`) VALUES(2, 'UWE-Find Inc &copy;');
+INSERT INTO `groups` (`group_id`, `group_name`) VALUES(3, 'Google Developers');
 
 -- --------------------------------------------------------
 
@@ -75,7 +55,7 @@ CREATE TABLE `project_details` (
   `proj_description` text NOT NULL,
   `github_link` varchar(255) NOT NULL,
   `group_id` int(11) NOT NULL,
-  `last_updated` datetime NOT NULL
+  `last_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -83,7 +63,10 @@ CREATE TABLE `project_details` (
 --
 
 INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(3, 'UWE Find', 'INFO 3490', 3, 'UWI Classroom Locating Application. Can be used to find any classroom, toilet or office on campus.', 'UWI Classroom Locating Application. Can be used to find any classroom, toilet or office on campus.', 'https://github.com/spiral360/U-WEFind', 2, '2017-04-21 00:00:00');
-INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(4, 'Junk Trade', 'INFO 3490', 3, 'Junk Trade is a web app that allows users to trade items with other users without need for money', 'Junk Trade is a web app that allows users to trade items with other users without need for money. JunkTrade allows users to define the value of their items by putting it up to trade against other user items.', 'https://github.com/micmac473/junktrade', 2, '2017-04-18 00:00:00');
+INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(4, 'Junk Trade', 'INFO 3490', 3, 'Junk Trade is a web app that allows users to trade items with other users without need for money', 'Junk Trade is a web app that allows users to trade items with other users without need for money. JunkTrade allows users to define the value of their items by putting it up to trade against other user items.', 'https://github.com/micmac473/junktrade', 3, '2017-04-25 00:00:00');
+INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(5, 'aopj', 'ooap', 2, 'oipjnlkkbkj,mpojnomjik', 'iohjnoijmhnnbyutyokjmaq', 'oijhnmopjiuhn', 2, '2017-04-23 00:00:00');
+INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(6, 'rsauxanj', 'iiasus', 2, 'aojxmaioouwqma', 'poiuxmaoiquwjsnmxmoijxjamxao', 'pokjximoiaukxsm', 2, '2017-04-23 00:00:00');
+INSERT INTO `project_details` (`proj_id`, `name`, `course_code`, `year`, `proj_des`, `proj_description`, `github_link`, `group_id`, `last_updated`) VALUES(7, 'poqspoiaxja', 'aposijmao', 1, 'i09pajxjahkssmkxaoikapmpxaso', 'apokjxmoajnatfasuttwqjomsaoiusoiytagsankspoyuxjampoxamoiyiagakpomaxa', 'iaousjxnaoiqwuytxiqgbqm', 2, '2017-04-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -105,6 +88,9 @@ CREATE TABLE `project_image` (
 
 INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(2, 3, 'uwefind.png', 'images/project/uwefind.png', 'image/png');
 INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(3, 4, 'logo.png', 'images/project/logo.png', 'image/png');
+INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(4, 5, '2.png', 'images/project/2.png', 'images/png');
+INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(5, 6, '4.png', 'images/project/4.png', 'images/png');
+INSERT INTO `project_image` (`img_id`, `proj_id`, `img_name`, `img_path`, `img_type`) VALUES(6, 7, '5.png', 'images/project/5.png', 'images/png');
 
 -- --------------------------------------------------------
 
@@ -145,21 +131,25 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` varchar(10) NOT NULL,
-  `role` text NOT NULL
+  `role` text NOT NULL,
+  `group_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(1, 'Michael', 'Sam', 'sammichael25@gmail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(12, 'User', 'One', 'user@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Team Leader');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(13, 'User', 'Two', 'user2@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(14, 'User', 'Three', 'user3@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Database Admin');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(15, 'User', 'Four', 'user4@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Graphic Designer');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(16, 'User', 'Five', 'user5@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(17, 'User', 'Five', 'user5@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer');
-INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`) VALUES(18, 'User', 'Five', 'user5@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer');
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(1, 'Michael', 'Sam', 'sammichael25@gmail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer', NULL);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(12, 'User', 'One', 'user@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Team Leader', 2);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(13, 'User', 'Two', 'user2@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer', 2);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(14, 'User', 'Three', 'user3@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Database Admin', 2);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(15, 'User', 'Four', 'user4@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Graphic Designer', 2);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(16, 'User', 'Five', 'user5@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer', 2);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(17, 'User', 'Six', 'user6@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer', 3);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(18, 'User', 'Seven', 'user7@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer', 3);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(19, 'User', 'Eight', 'user8@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer', 3);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(20, 'User', 'Nine', 'user9@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Programmer', 3);
+INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`, `group_id`) VALUES(21, 'User', 'Ten', 'user10@mail.com', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'Student', 'Web Developer', 3);
 
 --
 -- Indexes for dumped tables
@@ -169,19 +159,7 @@ INSERT INTO `user` (`uid`, `fname`, `lname`, `email`, `password`, `type`, `role`
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
-  ADD PRIMARY KEY (`group_id`),
-  ADD KEY `mem_id` (`mem_id`);
-
---
--- Indexes for table `members`
---
-ALTER TABLE `members`
-  ADD PRIMARY KEY (`mem_id`),
-  ADD KEY `uid_1` (`uid_1`),
-  ADD KEY `uid_2` (`uid_2`),
-  ADD KEY `uid_3` (`uid_3`,`uid_4`,`uid_5`),
-  ADD KEY `uid_4` (`uid_4`),
-  ADD KEY `uid_5` (`uid_5`);
+  ADD PRIMARY KEY (`group_id`);
 
 --
 -- Indexes for table `project_details`
@@ -208,7 +186,8 @@ ALTER TABLE `pro_pic`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `group_id` (`group_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -218,22 +197,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `members`
---
-ALTER TABLE `members`
-  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `project_details`
 --
 ALTER TABLE `project_details`
-  MODIFY `proj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `proj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `project_image`
 --
 ALTER TABLE `project_image`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `pro_pic`
 --
@@ -243,26 +217,10 @@ ALTER TABLE `pro_pic`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `groups`
---
-ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`mem_id`) REFERENCES `members` (`mem_id`);
-
---
--- Constraints for table `members`
---
-ALTER TABLE `members`
-  ADD CONSTRAINT `members_ibfk_1` FOREIGN KEY (`uid_1`) REFERENCES `user` (`uid`),
-  ADD CONSTRAINT `members_ibfk_2` FOREIGN KEY (`uid_2`) REFERENCES `user` (`uid`),
-  ADD CONSTRAINT `members_ibfk_3` FOREIGN KEY (`uid_3`) REFERENCES `user` (`uid`),
-  ADD CONSTRAINT `members_ibfk_4` FOREIGN KEY (`uid_4`) REFERENCES `user` (`uid`),
-  ADD CONSTRAINT `members_ibfk_5` FOREIGN KEY (`uid_5`) REFERENCES `user` (`uid`);
 
 --
 -- Constraints for table `project_details`
@@ -281,6 +239,12 @@ ALTER TABLE `project_image`
 --
 ALTER TABLE `pro_pic`
   ADD CONSTRAINT `pro_pic_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
