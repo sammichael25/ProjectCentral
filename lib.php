@@ -4,8 +4,8 @@ if(!session_id()) session_start();//If session is not started start session
 
 function getDBConnection(){
 	try{
-		//$db = new mysqli("sql10.freemysqlhosting.net","sql10166023","fNe6cp3r6y","sql10166023");
-		$db = new mysqli("localhost","web_project","admin","web_project");
+		$db = new mysqli("sql10.freemysqlhosting.net","sql10170988","D7Rq5VgEeq","sql10170988");
+		//$db = new mysqli("localhost","web_project","admin","web_project");
 		if ($db == null && $db->connect_errno > 0)return null;
 		return $db;
 	}catch(Exception $e){ } 
